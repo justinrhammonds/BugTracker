@@ -1,0 +1,24 @@
+﻿@model BugTracker.ViewModels.AdminUserViewModel
+@{
+    ViewBag.Title = "EditUserRoles";
+}
+
+<h2>EditUserRoles</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.ListBox("SelectedRoles", Model.Roles, new { @id = "multi-select-box", multiple = "multiple" })
+    <input type="submit" value="Update Roles" />
+    @Html.ActionLink("Cancel", "Index", "Users")
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#multi-select-box').multiselect();
+        });
+    </script>
+}
+
+
