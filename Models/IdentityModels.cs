@@ -20,7 +20,8 @@ namespace BugTracker.Models
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        
+        public string FullName { get { return FirstName + " " + LastName; } }
+
         public virtual ICollection<Project> Projects { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

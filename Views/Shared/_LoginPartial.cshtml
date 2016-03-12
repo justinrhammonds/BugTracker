@@ -1,17 +1,38 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    var userName = User.Identity.GetUserName();
+    <ul class="nav navbar-nav navbar-right pull-right">
+        <li class="dropdown">
+            <a href="" class="dropdown-toggle waves-effect waves-light profile" data-toggle="dropdown" aria-expanded="true">@Html.Gravatar(userName, 80, GravatarHelper.DefaultImageMysteryMan,GravatarRating.G, new { Title = "Current User: " + @ViewData["FullName"], Alt = "Gravatar" })</a>
+            <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://en.gravatar.com/"><i class="fa fa-cog"></i>Customize Gravatar</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="@Url.Action("ManageDisplayName","Manage")"><i class="fa fa-cog"></i>Change Name</a></li>
+                <li><a href="@Url.Action("ChangePassword","Manage")"><i class="fa fa-cog"></i>Change Password</a></li>
+                <li role="separator" class="divider"></li>
+                @using (Html.BeginForm("LogOff", "Account"))
+                {
+                    @Html.AntiForgeryToken()
+                    <li>
+                        <button class="btn-link custom-drop-selections" type="submit"><i class="fa fa-cog"></i>Logout</button>
+                    </li>
+                }
+
+            </ul>
+        </li>
+    </ul>
+    @*using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("Welcome, " + @ViewData["FullName"], "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
-    }
+    }*@
 }
 else
 {

@@ -27,19 +27,21 @@ namespace BugTracker.Helpers
             return manager.GetRoles(userId);
         }
 
-        // 
+        // Assign a role if not already assigned
         public bool AddUserToRole(string userId, string roleName)
         {
             var result = manager.AddToRole(userId, roleName);
             return result.Succeeded;
         }
 
+        //remove from role if already assigned
         public bool RemoveUserFromRole(string userId, string roleName)
         {
             var result = manager.RemoveFromRole(userId, roleName);
             return result.Succeeded;
         }
 
+        //get a list of all users in a role
         public IList<ApplicationUser> UsersInRole (string roleName)
         {
             var db = new ApplicationDbContext();
@@ -55,6 +57,7 @@ namespace BugTracker.Helpers
             return resultList;
         }
 
+        //get a list of all users not in a role
         public IList<ApplicationUser> UsersNotInRole(string roleName)
         {
             var resultList = new List<ApplicationUser>();

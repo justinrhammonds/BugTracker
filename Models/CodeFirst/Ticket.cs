@@ -12,22 +12,21 @@ namespace BugTracker.Models.CodeFirst
             this.Attachments = new HashSet<Attachment>();
             this.Comments = new HashSet<Comment>();
             this.TicketLogs = new HashSet<TicketLog>();
-
-
         }
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string RepoLocation { get; set; }
-        public DateTimeOffset CreatedDate { get; set; }
-        public DateTimeOffset ModifiedDate { get; set; }
 
-        public int CreatedById { get; set; }
-        public int ProjectId { get; set; }
-        public int AssignedToId { get; set; }
-        public int TicketPriorityId { get; set; }
-        public int TicketStatusId { get; set; }
-        public int TicketTypeId { get; set; }
+        public int Id { get; set; } // automatic
+        public string Name { get; set; } // user defined
+        public string Description { get; set; } // user defined
+        public string RepoLocation { get; set; }  // user defined
+        public DateTimeOffset CreatedDate { get; set; } // on submit
+        public DateTimeOffset? ModifiedDate { get; set; } // on submit
+
+        public string CreatedById { get; set; } // on submit
+        public int ProjectId { get; set; } // user defined, required
+        public string AssignedToId { get; set; } // unassigned at first, user defined 
+        public int TicketPriorityId { get; set; } // user defined (restrict to adm, pm)
+        public int TicketStatusId { get; set; } // user defined (restrict to adm, pm)
+        public int TicketTypeId { get; set; } // user defined, optional (in case of beta testers?)
 
         public virtual ApplicationUser CreatedBy { get; set; }
         public virtual Project Project { get; set; }

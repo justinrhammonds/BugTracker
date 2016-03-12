@@ -8,11 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
 using BugTracker.Models.CodeFirst;
+using AspNetIdentity2.Controllers;
 
 namespace BugTracker.Controllers
 {
     [RequireHttps]
-    public class TicketLogsController : Controller
+    public class TicketLogsController : ApplicationBaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

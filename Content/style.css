@@ -1,0 +1,297 @@
+﻿/* SHARED SITE STYLES 
+************************************/
+body {
+    font-family: 'Roboto', sans-serif;
+    padding-bottom:0;
+    padding-top:0;
+    color: #333 !important;
+    letter-spacing: .8px;
+}
+
+*:hover {
+    transition: all 0.2s ease-out;
+}
+
+input {
+    letter-spacing: .8px;
+}
+
+h1,h2,h3,h4,h5,h6,strong,.strong {
+    font-family: 'Passion One', cursive;
+    font-weight:400;
+}
+
+h1 {
+    font-size:4em;
+}
+h2 {
+    font-size:3.5em;
+}
+h3 {
+    font-size: 3em;
+}
+h4, .header-title {
+    font-size:2.5em;
+}
+
+.header-title {
+    margin:20px auto;
+}
+
+h5, .h5 {
+    font-size:2em;
+}
+h6 {
+    font-size:1.5em;
+}
+
+.body-content {
+    max-width:100% !important;
+    padding:0 !important;
+    min-height:400px;
+}
+
+/* NAV STYLING */
+
+.navbar-custom,
+.bg-dark {
+    background-color:#444444;
+    background:#444444;
+    padding:10px 0;
+}
+
+.nav-logo {
+    width:180px;
+}
+
+.navbar-custom .navbar-nav li a {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: transparent !important;
+    transition: all 0.2s ease-out;
+    padding-top:18px;
+    padding-bottom:18px;
+}
+
+.navbar-custom .navbar-nav li a:hover,
+.navbar-custom .navbar-nav li a:focus
+ {
+    color:#00a1e9;
+    transition: all 0.2s ease-out;
+}
+
+.fa-bars {
+    color: #fff;
+    font-size:2em;
+}
+
+.fa-cog {
+    color:#aaa;
+    padding-right:10px;
+    font-size:.9em;
+}
+
+.fa-cogs {
+    font-size:1.6em !important;
+    position:relative;
+    top:5px;
+}
+
+/* GENERAL BRAND STYLING */
+
+.brand {
+    position:relative;
+    padding: 0 5px;
+    bottom:10px;
+    width: 80px;
+}
+
+/* BUTTON STYLING */
+
+.btn-primary:hover {
+    background-color: #00a1e9 !important;
+    transition: all 0.2s ease-out;
+}
+
+.btn-primary {
+    background-color: #898989 !important;
+    border-color:transparent !important;
+    transition: all 0.2s ease-out;
+}
+
+.btn-info, btn-link {
+    font-family: 'Roboto', sans-serif;
+    font-weight:700;
+    transition: all 0.2s ease-out;
+}
+
+.btn-info:hover {
+    background-color: #33bbd2 !important;
+    border-color:transparent !important;
+    transition: all 0.2s ease-out;
+}
+
+.btn-link:hover {
+    transition: all 0.2s ease-out;
+}
+
+
+/* HR STYLING */
+
+.ridges {
+    border-top:none;
+    border-bottom:10px double #00a1e9;
+}
+
+/* FONT AWESOME STYLING */
+
+.fa-check {
+    font-size:4em !important;
+}
+
+/* START PAGE STYLES 
+************************************/
+
+.typed-box {
+    margin-bottom: 150px;
+}
+
+/*BLINKING CURSOR - TYPED.JS*/
+.typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+
+.pricing-num {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 100px;
+    height: 120px;
+    width: 120px;
+    margin: 0px auto;
+    color: #79D5FD;
+    background: rgba(166, 227, 254, .8);
+    border-radius: 50%;
+    border: 12px solid;
+    border-color: #DBF3FD;
+}
+
+.bg-gray {
+    background-color:#f4f4f4;
+}
+
+.bg-overlay {
+    background: linear-gradient(#121212, #050505);
+    opacity: 0.85;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+}
+
+/* LOGIN PAGE STYLES 
+************************************/
+/*Carbon-Fibre Texture*/
+#login {
+    background-image: url("img/CV-bg.png");
+    background-repeat:repeat;
+    height: 110vh;
+    border:none;
+    background-color: #aaa;
+}
+
+#login label  {
+    font-family: 'Passion One', cursive;
+    font-size:1.5em;
+}
+
+.login-section {
+    margin-top:100px;
+}
+
+
+/* DASHBOARD STYLES 
+************************************/
+#topnav .topbar-main .logo {
+    margin-top:0;
+}
+
+#topnav .topbar-main {
+    background-color:#444444;
+}
+
+#dashboard .navbar-custom {
+    padding:0;
+}
+
+#dashboard .custom-drop-selections {
+    display: block;
+    padding: 6px 20px 6px 18px;
+    clear: both;
+    text-align:left;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333333;
+    white-space: nowrap;
+    text-decoration: none;
+    width:100%;
+}
+
+#dashboard .custom-drop-selections:hover {
+    background-color:#428bca;
+    color:#fff;
+}
+
+#dashboard .form-control {
+    width:auto;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background-color: #444;
+    border-color: #444;
+}
+
+
+/* MEDIA QUERIES 
+************************************/
+@media (min-width: 768px) {
+    .fa-bars {
+        display:none;
+    }
+
+    #dashboard .body-content {
+        padding-top:174px !important;
+    }
+}
+
+@media (max-width:767px) {
+    #dashboard .body-content {
+        padding-top:110px !important;
+    }
+
+    .navbar-nav .open .dropdown-menu > li > a {
+        padding: 6px 20px 6px 20px !important;
+    }
+}
+
+
+
+

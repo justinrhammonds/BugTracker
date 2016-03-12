@@ -2,30 +2,426 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@{
+    Layout = "~/Views/Shared/_StartLayout.cshtml";
+}
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+  <!-- HOME -->
+<section class="home bg-img-1 parallax" data-stellar-background-ratio="0.5">
+    <div class="bg-overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="home-wrapper text-center">
+                    <h1 class="typed-box"><span class="typed-span"></span></h1>
+                    <p class="animated fadeInDown wow" data-wow-delay=".2s">CodeVariations is a software application that keeps track of software issues and their resolutions. Using CodeVariations provides teams with a clear overview of development requests and their current status.</p>
+                    <a href="@Url.Action("Login","Account")" class="btn btn-primary btn-rounded w-lg animated fadeInDown wow" data-wow-delay=".4s">Login</a>
+                    <a href="@Url.Action("Register","Account")" class="btn btn-primary btn-rounded w-lg animated fadeInDown wow" data-wow-delay=".4s">Register</a>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+</section>
+<!-- END HOME -->
+<!-- SERVICES -->
+<section class="section" id="features">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3 class="title zoomIn animated wow" data-wow-delay=".1s">Features</h3>
+                <p class="sub-title zoomIn animated wow" data-wow-delay=".2s">CodeVariations is a bug tracking system that enables software development teams to provide a clear, documented overview of any software issue from its initial submission to its final resolution.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="service-item animated fadeInLeft wow" data-wow-delay=".1s">
+                    <i class="fa fa-check"></i>
+                    <div class="service-detail">
+                        <h5>Role-Based Operations</h5>
+                        <p>CodeVariations comes with four primary user roles, each role has specific operations it can perform as it relates to any project or ticket.</p>
+                    </div> <!-- /service-detail -->
+                </div> <!-- /service-item -->
+            </div> <!-- /col -->
+
+            <div class="col-sm-4">
+                <div class="service-item animated fadeInDown wow" data-wow-delay=".3s">
+                    <i class="fa fa-check"></i>
+                    <div class="service-detail">
+                        <h5>Easy Task-Handling</h5>
+                        <p>The user interface provides a clean, easy-to-use dashboard system for completing all role-specific tasks. </p>
+                    </div> <!-- /service-detail -->
+                </div> <!-- /service-item -->
+            </div> <!-- /col -->
+
+            <div class="col-sm-4">
+                <div class="service-item animated fadeInRight wow" data-wow-delay=".5s">
+                    <i class="fa fa-check"></i>
+                    <div class="service-detail">
+                        <h5>Detailed Logging</h5>
+                        <p>Includes an archived log of all tickets, open and closed, that detail the changes needed, changes made, current status and all conversations regarding a ticket.</p>
+                    </div> <!-- /service-detail -->
+                </div> <!-- /service-item -->
+            </div> <!-- /col -->
+        </div> <!--end row -->
+
+
+
+
+
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+</section>
+<!-- END SERVICES -->
+<!-- SCREENSHOTS -->
+<section class="section bg-gray" id="how-it-works">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="feature-detail">
+                    <h3 class="title fadeIn animated wow" data-wow-delay=".1s">How
+                        <img class="brand" src="~/Content/img/CV.svg" />  Works</h3>
+                    <p class="sub fadeIn animated wow" data-wow-delay=".2s">CodeVariations provides a detailed workspace for documenting and resolving all relevant software issues. Collaborate, and communicate better as a team to create better software solutions.</p>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="fa fa-long-arrow-right"></i>
+                            Once you are registered on the site, Administrators will assign users to one of four roles: Administrator, Project Manager, Developer, and Submitter.
+                        </li>
+                        <li>
+                            <i class="fa fa-long-arrow-right"></i>
+                            Once assigned to a role, Administrators and Project Managers can create or edit projects as well as assign users to specific projects or tickets.
+                        </li>
+                        <li>
+                            <i class="fa fa-long-arrow-right"></i>
+                            Administrators, Project Managers, and Developers can create new tickets, and can edit or comment on existing tickets.
+                        </li>
+                        <li>
+                            <i class="fa fa-long-arrow-right"></i>
+                            Submitters can create new tickets, and can view and comment on the tickets that they submit.
+                        </li>
+                    </ul>
+                    <a href="@Url.Action("Register","Account")" class="btn btn-primary btn-rounded w-lg animated fadeInDown wow" data-wow-delay=".4s">Register Now</a>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+            </div>
+
+        </div>
     </div>
-</div>
+</section>
+<!-- END SCREENSHOTS -->
+<!-- HOME -->
+<section class="fun-facts bg-img-2 parallax" data-stellar-background-ratio="0.5">
+    <div class="bg-overlay"></div>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 facts">
+                <h3>CodeVariations was developed using:</h3>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 facts">
+                <hr class="ridges" />
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-3 col-sm-3 facts">
+
+                <h5>ASP.NET</h5>
+            </div>
+            <!-- /1 -->
+            <div class="col-md-3 col-sm-3 facts">
+
+                <h5>MVC4</h5>
+            </div>
+            <!-- /2 -->
+            <div class="col-md-3 col-sm-3 facts">
+
+                <h5>LINQ</h5>
+            </div>
+            <!-- /3 -->
+            <div class="col-md-3 col-sm-3 facts">
+
+                <h5>RAZOR</h5>
+            </div>
+            <!-- /4 -->
+        </div>
+        <div class="row text-center">
+            <div class="col-md-3 col-sm-3 facts">
+
+                <h5>SQLSERVER</h5>
+            </div>
+            <!-- /1 -->
+            <div class="col-md-3 col-sm-3 facts">
+
+                <h5>JQUERY</h5>
+            </div>
+            <!-- /2 -->
+            <div class="col-md-3 col-sm-3 facts">
+
+                <h5>BOOTSTRAP</h5>
+            </div>
+            <!-- /3 -->
+            <div class="col-md-3 col-sm-3 facts">
+
+                <h5>HTML/CSS/JS</h5>
+            </div>
+            <!-- /4 -->
+        </div>
+    </div>
+</section>
+<!-- END HOME -->
+<!-- DEMO SECTION -->
+<section class="section" id="demo">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h1 class="title zoomIn animated wow" data-wow-delay=".1s">Try Out CodeVariations - Free!</h1>
+                <p class="sub-title zoomIn animated wow" data-wow-delay=".2s">Click below to log in as any one of four types of users in the CodeVariations application: <br />Administrator, Project Manager, Developer, and Submitter.</p>
+            </div>
+        </div> <!-- end row -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+
+                    <!-- Pricing Item -->
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <div class="pricing-item animated fadeInLeft wow" data-wow-delay=".3s">
+                            <div class="pricing-item-inner">
+                                <div class="pricing-wrap">
+
+                                    <div class="pricing-num">
+                                        ADM
+                                    </div>
+                                    <div class="pr-per">
+                                        try out the
+                                    </div>
+
+                                    <!-- Pricing Title -->
+                                    <div class="pricing-title">
+                                        Administrator<br />Demo
+                                    </div>
+                                    <!-- Pricing Features -->
+                                    <div class="pricing-features">
+                                        <ul class="sf-list pr-list">
+                                            <li>Manage Users</li>
+                                            <li>Manage Projects</li>
+                                            <li>Manage Tickets</li>
+                                            <li>Manage Profile</li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Button -->
+                                    <div class="pr-button">
+                                        @*<a href="" class="btn btn-primary btn-rnd">Try It Out</a>*@
+                                        <form method="Post" action="@Url.Action("DemoLogin","Account", new { uName = "guestadmin@demo.demo"})">
+                                            @Html.AntiForgeryToken()<input type="submit" value="Try It Out" class="btn btn-primary btn-rnd" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Pricing Item -->
+                    <!-- Pricing Item -->
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <div class="pricing-item animated fadeInLeft wow" data-wow-delay=".5s">
+                            <div class="pricing-item-inner">
+                                <div class="pricing-wrap">
+
+                                    <div class="pricing-num">
+                                        PM
+                                    </div>
+                                    <div class="pr-per">
+                                        try out the
+                                    </div>
+
+                                    <!-- Pricing Title -->
+                                    <div class="pricing-title">
+                                        Project Manager<br />Demo
+                                    </div>
+                                    <!-- Pricing Features -->
+                                    <div class="pricing-features">
+                                        <ul class="sf-list pr-list">
+                                            <li>Manage Projects</li>
+                                            <li>Manage Tickets</li>
+                                            <li>Manage Profile</li>
+                                            <li> </li>
+                                            <li> </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Button -->
+                                    <div class="pr-button">
+                                        <form method="Post" action="@Url.Action("DemoLogin","Account", new { uName = "guestmanager@demo.demo"})">
+                                            @Html.AntiForgeryToken()<input type="submit" value="Try It Out" class="btn btn-primary btn-rnd" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Pricing Item -->
+                    <!-- Pricing Item -->
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <div class="pricing-item animated fadeInLeft wow" data-wow-delay=".7s">
+                            <div class="pricing-item-inner">
+                                <div class="pricing-wrap">
+
+                                    <div class="pricing-num">
+                                        DEV
+                                    </div>
+                                    <div class="pr-per">
+                                        try out the
+                                    </div>
+
+                                    <!-- Pricing Title -->
+                                    <div class="pricing-title">
+                                        Developer<br />Demo
+                                    </div>
+                                    <!-- Pricing Features -->
+                                    <div class="pricing-features">
+                                        <ul class="sf-list pr-list">
+                                            <li>Manage Tickets</li>
+                                            <li>Manage Profile</li>
+                                            <li> </li>
+                                            <li> </li>
+                                            <li> </li>
+                                            <li> </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Button -->
+                                    <div class="pr-button">
+                                        <form method="Post" action="@Url.Action("DemoLogin","Account", new { uName = "guestdeveloper@demo.demo"})">
+                                            @Html.AntiForgeryToken()<input type="submit" value="Try It Out" class="btn btn-primary btn-rnd" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End DEMO Item -->
+                    <!-- Pricing Item -->
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <div class="pricing-item animated fadeInLeft wow" data-wow-delay=".7s">
+                            <div class="pricing-item-inner">
+                                <div class="pricing-wrap">
+
+                                    <div class="pricing-num">
+                                        SUB
+                                    </div>
+                                    <div class="pr-per">
+                                        try out the
+                                    </div>
+
+                                    <!-- Pricing Title -->
+                                    <div class="pricing-title">
+                                        Submitter<br />Demo
+                                    </div>
+                                    <!-- Pricing Features -->
+                                    <div class="pricing-features">
+                                        <ul class="sf-list pr-list">
+                                            <li>Manage Tickets</li>
+                                            <li>Manage Profile</li>
+                                            <li> </li>
+                                            <li> </li>
+                                            <li> </li>
+                                            <li> </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Button -->
+                                    <div class="pr-button">
+                                        <form method="Post" action="@Url.Action("DemoLogin","Account", new { uName = "guestsubmitter@demo.demo"})">
+                                            @Html.AntiForgeryToken()<input type="submit" value="Try It Out" class="btn btn-primary btn-rnd" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End DEMO Item -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- END DEMO -->
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('a[href*="#"]:not([href="#"])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html, body').animate({
+                            scrollTop: target.offset().top
+                        }, 1500, "easeInOutCubic");
+                        return false;
+                    }
+                }
+            });
+        });
+
+        $(function(){
+            $(".typed-span").typed({
+                strings: ["As developers, we build things.", "When something breaks, we rebuild it.", "Always looking for that perfect solution.^200", "It's here.^800", "CodeVariations"],
+                // Optionally use an HTML element to grab strings from (must wrap each string in a <p>)
+                stringsElement: null,
+                // typing speed
+                typeSpeed: 35,
+                // time before typing starts
+                startDelay: 300,
+                // backspacing speed
+                backSpeed: 8,
+                // time before backspacing
+                backDelay: 1500,
+                // loop
+                loop: false,
+                // false = infinite
+                loopCount: false,
+                // show cursor
+                showCursor: true,
+                // character for cursor
+                cursorChar: "|",
+                // attribute to type (null == text)
+                attr: null,
+                // either html or text
+                contentType: 'html',
+                // call when done callback function
+                callback: function() {},
+                // starting callback function before each string
+                preStringTyped: function() {},
+                //callback for every typed string
+                onStringTyped: function() {},
+                // callback for reset
+                resetCallback: function() {}
+            });
+        });
+    </script>
+}
+
+
+@*<form method="Post" action="@Url.Action("DemoLogin","Account", new { uName = "guestadmin@demo.demo"})">
+        @Html.AntiForgeryToken()<input type="submit" value="Try It Out" class="btn btn-link" />
+    </form>
+    <form method="Post" action="@Url.Action("DemoLogin","Account", new { uName = "guestmanager@demo.demo"})">
+        @Html.AntiForgeryToken()<input type="submit" value="Try It Out" class="btn btn-primary btn-rnd" />
+    </form>
+    <form method="Post" action="@Url.Action("DemoLogin","Account", new { uName = "guestdeveloper@demo.demo"})">
+        @Html.AntiForgeryToken()<input type="submit" value="Try It Out" class="btn btn-primary btn-rnd" />
+    </form>
+    <form method="Post" action="@Url.Action("DemoLogin","Account", new { uName = "guestsubmitter@demo.demo"})">
+        @Html.AntiForgeryToken()<input type="submit" value="Try It Out" class="btn btn-primary btn-rnd" />
+    </form>*@

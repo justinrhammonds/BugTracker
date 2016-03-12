@@ -1,4 +1,5 @@
-﻿using BugTracker.Helpers;
+﻿using AspNetIdentity2.Controllers;
+using BugTracker.Helpers;
 using BugTracker.Models;
 using BugTracker.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -10,21 +11,19 @@ using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
+    //Only Admin can GET Index, or GET/POST EditUserRoles
     [RequireHttps]
-    [Authorize]
-    public class UsersController : Controller
+    [Authorize(Roles = "Admin")]
+    public class UsersController : ApplicationBaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         
-        //all authorized users
-
         public ActionResult Index()
         {
             var users = db.Users.ToList().OrderBy(u=>u.LastName);
             return View(users);
         }
 
-        [Authorize(Roles = "Admin")]
         public ActionResult EditUserRoles(string id)
         {
             var user = db.Users.Find(id);
@@ -38,21 +37,24 @@ namespace BugTracker.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult EditUserRoles(AdminUserViewModel model)
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUserRoles(AdminUserViewModel model, string id)
         {
-            var user = User.Identity.GetUserId();
+            //var user = User.Identity.GetUserId();
             UserRolesHelper helper = new UserRolesHelper();
-            var currentRoles = helper.ListUserRoles(user);
-
+            //var currentRoles = helper.ListUserRoles(id);
+            if (model.SelectedRoles == null)
+            {
+                model.SelectedRoles = new string[] { "" };
+            }
             foreach (var role in db.Roles.Select(r=>r.Name))
             {
                 if (model.SelectedRoles.Contains(role))
                 {
-                    helper.AddUserToRole(user, role);
+                    helper.AddUserToRole(id, role);
                 } else
                 {
-                    helper.RemoveUserFromRole(user, role);
+                    helper.RemoveUserFromRole(id, role);
                 }
             }
 

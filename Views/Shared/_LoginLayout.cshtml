@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="shortcut icon" href="~/favicon-cv.ico" />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/theme/dashboard")
+    <link href='https://fonts.googleapis.com/css?family=Passion+One|Roboto:400,400italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="~/Content/style.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body id="login">
+    @* NAVIGATION *@
+    <div class="navbar navbar-custom" role="navigation">
+        <div class="container">
+            <!-- Navbar-header -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <!-- LOGO -->
+                <a class="navbar-brand logo" href="@Url.Action("Index","Home")">
+                    <img class="nav-logo" src="~/Content/img/CV-Logo.svg" />
+                </a>
+            </div>
+            <!-- end navbar-header -->
+            <!-- menu -->
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        @Html.ActionLink("Login", "Login", "Account")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Register", "Register", "Account")
+                    </li>
+                </ul>
+            </div>
+            <!--/Menu -->
+        </div>
+        <!-- end container -->
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/theme/dash-addons")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+
+

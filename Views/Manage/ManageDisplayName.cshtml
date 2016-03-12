@@ -1,0 +1,26 @@
+﻿@model BugTracker.Models.ApplicationUser
+@{
+    ViewBag.Title = "ManageDisplayName";
+}
+
+<h2>ManageDisplayName</h2>
+
+@using (Html.BeginForm("ManageDisplayName", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="col-xs-12">
+                <label class="strong" for="FirstName">First Name:</label>
+                <input class="form-control" name="FirstName" value="@Model.FirstName" />
+            </div>
+            <div class="col-xs-12 x-pad-top">
+                <label class="strong" for="LastName">Last Name:</label>
+                <input class="form-control" name="LastName" value="@Model.LastName" />
+            </div>
+            <div class="col-xs-12">
+                <div>
+                    <input type="submit" value="Change Display Name" class="btn btn-default" />
+                    @Html.ActionLink("Cancel", "Index", "Manage", new { @class = "btn btn-default" })
+                </div>
+            </div>
+}

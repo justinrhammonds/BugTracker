@@ -1,0 +1,23 @@
+﻿@model BugTracker.ViewModels.ProjectsViewModel
+@{
+    ViewBag.Title = "AssignProjectUsers";
+}
+
+<h2>AssignProjectUsers</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ListBox("SelectedUsers", Model.Users, new { @id = "multi-select-box", multiple = "multiple" })
+    <input type="submit" value="Assign Users" />
+    @Html.ActionLink("Cancel", "Index", "Users")
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#multi-select-box').multiselect();
+        });
+    </script>
+}
+

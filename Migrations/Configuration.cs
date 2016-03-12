@@ -12,6 +12,8 @@ namespace BugTracker.Migrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<BugTracker.Models.ApplicationDbContext>
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
@@ -59,32 +61,26 @@ namespace BugTracker.Migrations
                 userManager.AddToRole(userId, "Admin");
             }
 
-            context.TicketPriorities.AddRange(
-                new List<TicketPriority>()
-                {
-                    new TicketPriority { Name = "Nice To Have" },
-                    new TicketPriority { Name = "Important" },
-                    new TicketPriority { Name = "Urgent" },
-                    new TicketPriority { Name = "Critical" }
-                });
+            context.TicketPriorities.AddOrUpdate(p => p.Name,
+                new TicketPriority { Name = "Nice To Have" },
+                new TicketPriority { Name = "Important" },
+                new TicketPriority { Name = "Urgent" },
+                new TicketPriority { Name = "Critical" }
+                );
 
-            context.TicketStatuses.AddRange(
-                new List<TicketStatus>()
-                {
-                                new TicketStatus { Name = "Unassigned/Open" },
-                                new TicketStatus { Name = "Assigned/In Progress" },
-                                new TicketStatus { Name = "Resolved" }
-                });
+            context.TicketStatuses.AddOrUpdate(p => p.Name,
+                new TicketStatus { Name = "Unassigned/Open" },
+                new TicketStatus { Name = "Assigned/In Progress" },
+                new TicketStatus { Name = "Resolved" }
+                );
 
-            context.TicketTypes.AddRange(
-                new List<TicketType>()
-                {
-                                new TicketType { Name = "Change Request" },
-                                new TicketType { Name = "Design Change Request" },
-                                new TicketType { Name = "Support Request" },
-                                new TicketType { Name = "Software Bug" },
-                                new TicketType { Name = "Documentation Bug" }
-                });
+            context.TicketTypes.AddOrUpdate(p => p.Name, 
+                new TicketType { Name = "Change Request" },
+                new TicketType { Name = "Design Change Request" },
+                new TicketType { Name = "Support Request" },
+                new TicketType { Name = "Software Bug" },
+                new TicketType { Name = "Documentation Bug" }
+                );
 
         }
     }

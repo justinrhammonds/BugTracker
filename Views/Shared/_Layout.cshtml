@@ -4,40 +4,98 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="shortcut icon" href="~/favicon-cv.ico" />
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/theme/dashboard")
+    @Styles.Render("~/Content/theme/dataTables/dashboard")
+    <link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Passion+One|Roboto:400,400italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="~/Content/style.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
-    <script src="~/Scripts/bootstrap-multiselect.js"></script>
+
 
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+<body id="dashboard">
+    <header id="topnav">
+        <div class="topbar-main">
+            <div class="container">
+
+                <!-- Logo container-->
+                <a class="navbar-brand logo" href="@Url.Action("Index","Home")">
+                    <img class="nav-logo" src="~/Content/img/CV-Logo.svg" />
+                </a>
+                <!-- End Logo container-->
+
+                <div class="menu-extras">
+                    @Html.Partial("_LoginPartial")
+
+                    <div class="menu-item">
+                        <!-- Mobile menu toggle-->
+                        <a class="navbar-toggle">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                        <!-- End mobile menu toggle-->
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
+        <!-- End topbar -->
+        <!-- Navbar Start -->
+        <div class="navbar-custom">
+            <div class="container">
+                <div id="navigation">
+                    <!-- Navigation Menu-->
+                    <ul class="navigation-menu">
+                        <!-- DASHBOARD -->
+                        <li class="has-submenu">
+                            <a href="@Url.Action("Index","Tickets")"><i class="fa fa-home"></i>Ticket Dashboard</a>
+                        </li>
+                        <!-- MANAGE ASSIGNMENTS -->
+                        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                        {
+                            <li class="has-submenu">
+                                <a href="#"><i class="fa fa-chevron-down"></i>Manage Assignments</a>
+                                <ul class="submenu">
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a href="@Url.Action("Index","Users")">Assign Roles to Users</a></li>
+                                    }
+
+                                    <li><a href="@Url.Action("Index","Projects")">Assign Users to Projects</a></li>
+                                    <li><a href="@Url.Action("Index","Tickets")">Assign Tickets to Users</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- CREATE NEW PROJECT -->
+                            <li class="has-submenu">
+                                <a href="@Url.Action("Create","Projects")"><i class="fa fa-plus"></i>New Project</a>
+                            </li>
+                        }
+                        <!-- CREATE NEW TICKET -->
+                        <li class="has-submenu">
+                            <a href="@Url.Action("Create","Tickets")"><i class="fa fa-plus"></i>New Ticket</a>
+                        </li>
+                    </ul>
+                    <!-- End navigation menu -->
+                </div>
+            </div>
+        </div>
+    </header>
+
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/theme/dash-addons")
+    @Scripts.Render("~/bundles/theme/dataTables/dash-addons")
     <script src="~/Scripts/bootstrap-multiselect.js"></script>
     @RenderSection("scripts", required: false)
 </body>

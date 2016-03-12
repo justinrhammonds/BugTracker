@@ -104,3 +104,26 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<hr />
+<form action="@Url.Action("Create","Comments")" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="TicketId" value="@Model.Id" />
+    <div class="form-group">
+        <textarea class="form-control" name="Body" rows="2"></textarea>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-info" />
+</form>
+<hr />
+<div class="col-xs-12 comment-list">
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="col-xs-12">
+            <span class="comment-name">@comment.User.FullName | </span><span class="comment-date">@comment.CreatedDate.ToString("dddd, MMMM d, yyyy")</span>
+
+            <div class="post-comment">
+                <span class="comment-body">@comment.Body</span>
+            </div>
+        </div>
+    }
+</div>
+

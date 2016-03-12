@@ -1,0 +1,15 @@
+﻿@model BugTracker.ViewModels.TicketsViewModel
+@{
+    ViewBag.Title = "AssignUserToTicket";
+}
+
+<h2>AssignTciketUser</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @*@Html.ListBox("SelectedUser", Model.Users, new { @id = "multi-select-box", multiple = "multiple" })*@
+    @Html.DropDownList("SelectedUser", Model.Users, "- Select -", htmlAttributes: new { @class = "form-control" })
+    <input type="submit" value="Assign User" />
+    @Html.ActionLink("Cancel", "Index", "Tickets")
+}

@@ -7,15 +7,18 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BugTracker.Models;
+using AspNetIdentity2.Controllers;
 
 namespace BugTracker.Controllers
 {
+    //Only Authenticated Users can GET/POST any actions here
     [RequireHttps]
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : ApplicationBaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -74,6 +77,32 @@ namespace BugTracker.Controllers
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
+        }
+
+        //GET: /Manage/ManageDisplayName
+        [HttpGet]
+        public ActionResult ManageDisplayName()
+        {
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            return View(user);
+        }
+
+        // POST: Manage/ManageDisplayName
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ManageDisplayName(string Id, string FirstName, string LastName)
+        {
+            var user = db.Users.Find(Id);
+            if (ModelState.IsValid)
+            {
+
+                user.FirstName = FirstName;
+                user.LastName = LastName;
+
+                db.SaveChanges();
+                return RedirectToAction("Index", "Manage");
+            }
+            return View(user);
         }
 
         //

@@ -8,6 +8,7 @@
 
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     @Html.ListBox("SelectedRoles", Model.Roles, new { @id = "multi-select-box", multiple = "multiple" })
     <input type="submit" value="Update Roles" />
     @Html.ActionLink("Cancel", "Index", "Users")
