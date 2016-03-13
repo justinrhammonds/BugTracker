@@ -16,7 +16,7 @@ input {
     letter-spacing: .8px;
 }
 
-h1,h2,h3,h4,h5,h6,strong,.strong {
+h1,h2,h3,h4,h5,h6,.h6,strong,.strong {
     font-family: 'Passion One', cursive;
     font-weight:400;
 }
@@ -41,7 +41,7 @@ h4, .header-title {
 h5, .h5 {
     font-size:2em;
 }
-h6 {
+h6, .h6 {
     font-size:1.5em;
 }
 
@@ -96,6 +96,18 @@ h6 {
     font-size:1.6em !important;
     position:relative;
     top:5px;
+}
+
+.x-pad-right {
+    padding-right: 5px;
+}
+
+.x-pad-top {
+    padding-top: 5px;
+}
+
+#datatables_buttons_info h2 {
+    font-size:1.5em !important;
 }
 
 /* GENERAL BRAND STYLING */
@@ -210,12 +222,12 @@ h6 {
 /* LOGIN PAGE STYLES 
 ************************************/
 /*Carbon-Fibre Texture*/
-#login {
+#login, #dashboard {
     background-image: url("img/CV-bg.png");
     background-repeat:repeat;
     height: 110vh;
     border:none;
-    background-color: #aaa;
+    background-color: #ccc;
 }
 
 #login label  {
@@ -240,6 +252,10 @@ h6 {
 
 #dashboard .navbar-custom {
     padding:0;
+}
+
+#dashboard table .btn-xs {
+    margin-bottom:5px;
 }
 
 #dashboard .custom-drop-selections {
@@ -267,6 +283,12 @@ h6 {
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
     background-color: #444;
     border-color: #444;
+}
+
+.section-heading {
+    text-align: center;
+    padding: 10px 0 40px 0;
+    text-transform:uppercase;
 }
 
 

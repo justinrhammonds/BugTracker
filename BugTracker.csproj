@@ -333,6 +333,7 @@
     <Content Include="Scripts\theme\waypoints.min.js" />
     <Content Include="Scripts\theme\wow.min.js" />
     <Content Include="Template\index.html" />
+    <Content Include="Template\index2.html" />
     <Content Include="Template\landingpage.html" />
     <Content Include="Template\pages-blank.html" />
     <Content Include="Template\pages-login.html" />

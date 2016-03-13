@@ -1,30 +1,52 @@
-﻿@model IEnumerable<BugTracker.Models.ApplicationUser>
+﻿@using BugTracker.Helpers;
+@model IEnumerable<BugTracker.Models.ApplicationUser>
 @{
     ViewBag.Title = "Index";
 }
-<h2>Index</h2>
-<table>
-    <thead>
-        <tr>        
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Email</th>
-            <th>Edit</th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="section-heading col-xs-12 col-sm-10 col-sm-offset-1">
+    <h4>Manage Role Assignments</h4>
+</div>
+@foreach (var user in Model)
+{
+    var userName = user.Email;
+    UserRolesHelper helper = new UserRolesHelper();
+    var userRoles = helper.ListUserRoles(user.Id);
+    <div class="col-md-4">
+        <div class="card-box widget-user">
+            <div>
+                @Html.Gravatar(userName, 120, GravatarHelper.DefaultImageMysteryMan, GravatarRating.G, new { Title = @ViewData["FullName"], Alt = "Gravatar" })
+                <div class="wid-u-info col-xs-12">
+                    <h6 class="m-t-0 m-b-5">@user.FullName</h6>
+                    <p class="text-muted m-b-5 font-13">@user.Email</p>
+                    <span><strong>ROLES:</strong>
+                        @foreach (var role in userRoles)
+                    {
+                        var roleName = role.ToString();
+                        if (roleName == "Admin")
+                        {
+                            roleName = "ADM";
+                        }
+                        else if (roleName == "Project Manager")
+                        {
+                            roleName = "PM";
+                        }
+                        else if (roleName == "Developer")
+                        {
+                            roleName = "DEV";
+                        }
+                        else
+                        {
+                            roleName = "SUB";
+                        }
+                        <span class="text-info x-pad-right"><i class="fa fa-star"></i><b>@roleName</b></span>
+                    }
+                </span>
+                    <div class="x-pad-top">@Html.ActionLink("Manage Roles", "EditUserRoles", "Users", new { id = user.Id }, new { @class = "btn btn-xs btn-info" })</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        @foreach (var user in Model)
-        {
-            <tr>            
-                <td>@user.LastName</td>
-                <td>@user.FirstName</td>
-                <td>@user.Email</td>
-                <td>
-                    @Html.ActionLink("Edit", "EditUserRoles","Users", new { id = user.Id }, null)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+}
+
 
