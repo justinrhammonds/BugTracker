@@ -14,7 +14,6 @@ using AspNetIdentity2.Controllers;
 namespace BugTracker.Controllers
 {
     [RequireHttps]
-    [Authorize]
     public class AccountController : ApplicationBaseController
     {
         private ApplicationSignInManager _signInManager;
