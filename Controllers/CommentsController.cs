@@ -21,7 +21,7 @@ namespace BugTracker.Controllers
         // POST: Comments/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Body,TicketId")] Comment comment)
+        public ActionResult CreateComment([Bind(Include = "Body,TicketId")] Comment comment)
         {
             //assign createddate
             //assign userid

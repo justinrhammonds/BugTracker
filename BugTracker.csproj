@@ -218,6 +218,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationBaseController.cs" />
+    <Compile Include="Controllers\AttachmentsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Models\CodeFirst\TicketPriority.cs" />
     <Compile Include="Models\CodeFirst\TicketStatus.cs" />
     <Compile Include="Models\CodeFirst\TicketType.cs" />
+    <Compile Include="Models\FileUploadValidator.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -281,6 +283,7 @@
     <Content Include="ConfigSecrets.config" />
     <None Include="Properties\PublishProfiles\jhammonds-bugtracker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\fileValidation.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -399,7 +402,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Upload\" />
     <Folder Include="Views\ApplicationBase\" />
+    <Folder Include="Views\Attachments\" />
     <Folder Include="Views\EditUser\" />
     <Folder Include="Views\UserRolesHelper\" />
   </ItemGroup>

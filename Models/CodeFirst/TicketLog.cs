@@ -8,7 +8,7 @@ namespace BugTracker.Models.CodeFirst
     public class TicketLog
     {
         public int Id { get; set; }
-        public DateTimeOffset ModifiedDate { get; set; }
+        public DateTimeOffset? ModifiedDate { get; set; }
         public string WhatChanged { get; set; }
         public string OldValue { get; set; }
         public string NewValue { get; set; }

@@ -105,8 +105,10 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 <hr />
-<form action="@Url.Action("Create","Comments")" method="post">
+<form action="@Url.Action("CreateComment","Tickets")" method="post">
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    @ViewBag.CommentMessage
     <input type="hidden" name="TicketId" value="@Model.Id" />
     <div class="form-group">
         <textarea class="form-control" name="Body" rows="2"></textarea>
@@ -126,4 +128,24 @@
         </div>
     }
 </div>
+
+<div class="col-xs-12">
+    @using (Html.BeginForm("AttachFile", "Tickets", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary();
+        @ViewBag.AttachmentMessage
+        <ol>
+            <li class="lifile">
+                <input type="hidden" name="TicketId" value="@Model.Id" />
+                <input type="file" id="fileToUpload" name="file" />
+                <span class="field-validation-error" id="spanfile"></span>
+            </li>
+        </ol>
+        <input type="submit" id="btnSubmit" value="Upload" />
+    }
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/fileValidation.js" type="text/javascript"></script>
+}
 
