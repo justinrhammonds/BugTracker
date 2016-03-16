@@ -128,7 +128,7 @@ namespace BugTracker.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,ProjectId,RepoLocation,TicketPriorityId,TicketStatusId,TicketTypeId")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,ProjectId,AssignedToId,RepoLocation,TicketPriorityId,TicketStatusId,TicketTypeId")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -143,24 +143,27 @@ namespace BugTracker.Controllers
                 //passed in - Name, Desc, Repo, tPriority, tType
                 db.Entry(ticket).Property(t => t.Name).IsModified = true;
                 db.Entry(ticket).Property(t => t.Description).IsModified = true;
+                db.Entry(ticket).Property(t => t.AssignedToId).IsModified = true;
                 db.Entry(ticket).Property(t => t.RepoLocation).IsModified = true;
                 db.Entry(ticket).Property(t => t.TicketPriorityId).IsModified = true;
                 db.Entry(ticket).Property(t => t.TicketStatusId).IsModified = true;
                 db.Entry(ticket).Property(t => t.TicketTypeId).IsModified = true;
                 db.SaveChanges();
+                db.Tickets.Include(t => t.AssignedTo).FirstOrDefault(t => t.Id == ticket.Id);
 
                 if (userId != ticket.AssignedToId)
                 {
                     if (ticket.AssignedToId != null)
                     {
                         var assignedDeveloper = ticket.AssignedTo.Email;
-                        var website = "https://crose-bugtracker.azurewebsites.net/Tickets/Details/" + ticket.Id;
+                        var user = db.Users.Find(userId).FullName;
+                        var website = "https://jhammonds-bugtracker.azurewebsites.net/Tickets/Details/" + ticket.Id;
                         var email = new EmailService();
                         var mail = new IdentityMessage
                         {
-                            Subject = "A Ticket Was Updated - CodeVariations",
+                            Subject = "A Ticket Was Changed - CodeVariations",
                             Destination = assignedDeveloper,
-                            Body = $"Hello {ticket.AssignedTo.FullName}, a ticket you are currently assigned ('{ticket.Name}') has been updated. Click here to view the changes: {website}"
+                            Body = $"Hi {ticket.AssignedTo.FirstName}! A ticket you are currently assigned ('{ticket.Name}') has been updated by {user}. Click below to view the changes: {website}"
                         };
                         email.SendAsync(mail);
                     }
@@ -305,13 +308,27 @@ namespace BugTracker.Controllers
             {
                 ModifiedDate = ticket.ModifiedDate,
                 WhatChanged = "Assignment",
-                OldValue = oldTicket?.AssignedTo.FullName,
+                //OldValue = oldTicket?.AssignedTo.FullName,
+                OldValue = db.Tickets.Find(ticketId).AssignedTo.FullName,
                 NewValue = ticket.AssignedTo.FullName,
                 SubmittedById = userId,
                 TicketId = ticket.Id
             };
             db.TicketLogs.Add(tl);
             db.SaveChanges();
+
+            // Send email notification when a user is assigned to a ticket
+            var user = db.Users.Find(userId).FullName;
+            var website = "https://jhammonds-bugtracker.azurewebsites.net/Tickets";
+            var email = new EmailService();
+            var mail = new IdentityMessage
+            {
+                Subject = "You've Been Assigned a Ticket - CodeVariations",
+                Destination = ticket.AssignedTo.Email,
+                Body = $"Attention {ticket.AssignedTo.FullName}, you have been assigned a new ticket from {user}. To view click here: {website}"
+            };
+            email.SendAsync(mail);
+
             return RedirectToAction("Index", "Tickets", model);
         }
 
