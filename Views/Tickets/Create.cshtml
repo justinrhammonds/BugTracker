@@ -4,82 +4,70 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="card-box row">
+            <div class="col-xs-12">
+                <h2 class="m-t-0 header-title"><b>Create New Ticket</b></h2>
+                <p class="text-muted font-13 m-b-30">
+                    Here you can create a new ticket. Start by entering as much detail as is necessary to begin working on the ticket, then simply submit the form. The created ticket is automatically unassigned until an Administrator or Project Manager assigns that ticket to a specific user.
+                </p>
+                <hr />
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row">                        
+                        <div class="form-group col-sm-6">
+                            @Html.LabelFor(model => model.Name, "Ticket Name", htmlAttributes: new { @class = "control-label col-xs-12" })
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control input" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            @Html.LabelFor(model => model.ProjectId, "Project", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("ProjectId", null, "- Select -", htmlAttributes: new { @class = "form-control select" })
+                            @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
+                        </div></div>
+
+                        <div class="row">                        
+                            <div class="form-group col-xs-12">
+                                @Html.LabelFor(model => model.Description, "Ticket Description", htmlAttributes: new { @class = "control-label col-xs-12" })
+                                <textarea class="form-control input" name="Description" rows="5"></textarea>
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-xs-12">
+                                @Html.LabelFor(model => model.RepoLocation, "Repository URL", htmlAttributes: new { @class = "control-label col-xs-12" })
+                                @Html.EditorFor(model => model.RepoLocation, new { htmlAttributes = new { @class = "form-control input", placeholder = "https://github.com/repositoryname" } })
+                                @Html.ValidationMessageFor(model => model.RepoLocation, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Ticket</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                @Html.LabelFor(model => model.TicketPriorityId, "Ticket Priority", htmlAttributes: new { @class = "control-label col-xs-12" })
+                                @Html.DropDownList("TicketPriorityId", null, "- Select -", htmlAttributes: new { @class = "form-control select" })
+                                @Html.ValidationMessageFor(model => model.TicketPriorityId, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                @Html.LabelFor(model => model.TicketTypeId, "Type of Ticket", htmlAttributes: new { @class = "control-label col-xs-12" })
+                                @Html.DropDownList("TicketTypeId", null, "- Select -", htmlAttributes: new { @class = "form-control select" })
+                                @Html.ValidationMessageFor(model => model.TicketTypeId, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <div class="pull-right">
+                                    <input type="submit" value="Create" class="btn btn-info" />
+                                    <a href="@Url.Action("Index","Tickets")" class="btn btn-info">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                }
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control"} })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RepoLocation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RepoLocation, new { htmlAttributes = new { @class = "form-control", placeholder="https://github.com/repositoryname" } })
-                @Html.ValidationMessageFor(model => model.RepoLocation, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProjectId, "ProjectId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ProjectId", null, "- Select -", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @* ADMIN & PMs ONLY *@
-        
-        @*@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-        {*@
-            <div class="form-group">
-                @Html.LabelFor(model => model.TicketPriorityId, "TicketPriorityId", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("TicketPriorityId", null, "- Select -", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.TicketPriorityId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.TicketTypeId, "TicketTypeId", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("TicketTypeId", null, "- Select -", htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.TicketTypeId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        @*//}*@
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-
     </div>
-}
-
-@*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

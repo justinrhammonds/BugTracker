@@ -136,18 +136,16 @@ namespace BugTracker.Controllers
                 var userId = User.Identity.GetUserId();
                 //UPDATE DB WITH EDIT INFO
                 db.Tickets.Attach(ticket);
-                //hidden: id, projectId
-                //change ModifiedDate
                 ticket.ModifiedDate = DateTimeOffset.Now;
-                db.Entry(ticket).Property(t => t.ModifiedDate).IsModified = true;
-                //passed in - Name, Desc, Repo, tPriority, tType
-                db.Entry(ticket).Property(t => t.Name).IsModified = true;
-                db.Entry(ticket).Property(t => t.Description).IsModified = true;
-                db.Entry(ticket).Property(t => t.AssignedToId).IsModified = true;
-                db.Entry(ticket).Property(t => t.RepoLocation).IsModified = true;
-                db.Entry(ticket).Property(t => t.TicketPriorityId).IsModified = true;
-                db.Entry(ticket).Property(t => t.TicketStatusId).IsModified = true;
-                db.Entry(ticket).Property(t => t.TicketTypeId).IsModified = true;
+                db.Update(ticket, "Name", "ModifiedDate", "Description", "AssignedToId", "TicketTypeId", "TicketPriorityId", "TicketStatusId", "RepoLocation");
+                //db.Entry(ticket).Property(t => t.ModifiedDate).IsModified = true;
+                //db.Entry(ticket).Property(t => t.Name).IsModified = true;
+                //db.Entry(ticket).Property(t => t.Description).IsModified = true;
+                //db.Entry(ticket).Property(t => t.AssignedToId).IsModified = true;
+                //db.Entry(ticket).Property(t => t.RepoLocation).IsModified = true;
+                //db.Entry(ticket).Property(t => t.TicketPriorityId).IsModified = true;
+                //db.Entry(ticket).Property(t => t.TicketStatusId).IsModified = true;
+                //db.Entry(ticket).Property(t => t.TicketTypeId).IsModified = true;
                 db.SaveChanges();
                 db.Tickets.Include(t => t.AssignedTo).FirstOrDefault(t => t.Id == ticket.Id);
 
@@ -377,7 +375,7 @@ namespace BugTracker.Controllers
                 else if (file.ContentLength > 0)
                 {
                     int MaxContentLength = 1024 * 1024 * 3; //3 MB
-                    string[] AllowedFileExtensions = new string[] { ".jpg", ".gif", ".png", ".pdf" };
+                    string[] AllowedFileExtensions = new string[] { ".jpg", ".png", ".pdf", ".txt" };
 
                     if (!AllowedFileExtensions.Contains(file.FileName.Substring(file.FileName.LastIndexOf('.'))))
                     {
@@ -395,15 +393,13 @@ namespace BugTracker.Controllers
                         //TO:DO
                         attachment.Title = Path.GetFileName(file.FileName);
                         var fileName = attachment.Title;
-                        attachment.FilePath = Path.Combine(Server.MapPath("~/Content/Upload"), fileName);
-                        var path = attachment.FilePath;
-                        file.SaveAs(path);
-                        ModelState.Clear();
+                        attachment.FilePath = "~/Content/Upload/" + fileName;
+                        file.SaveAs(Path.Combine(Server.MapPath("~/Content/Upload/"), fileName));
+                        //ModelState.Clear();
                         db.Attachments.Add(attachment);
                         db.SaveChanges();
                         TempData["aMessage"] = "Your file was uploaded successfully";
                     }
-                    return View(ticket);
                 }
                 return RedirectToAction("Details", "Tickets", new { id = attachment.TicketId });
             }
@@ -419,5 +415,6 @@ namespace BugTracker.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }

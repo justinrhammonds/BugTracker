@@ -229,6 +229,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HelperExtensions.cs" />
     <Compile Include="Helpers\ProjectsHelper.cs" />
     <Compile Include="Helpers\UserRolesHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -263,6 +264,8 @@
     <Content Include="Content\img\jquery.png" />
     <Content Include="Content\img\linq.png" />
     <Content Include="Content\img\mvc4.png" />
+    <Content Include="Content\img\PDF.png" />
+    <Content Include="Content\img\TXT.png" />
     <Content Include="Content\style.css" />
     <Content Include="Content\theme\dataTables\buttons.bootstrap.min.css" />
     <Content Include="Content\theme\dataTables\jquery.dataTables.min.css" />
@@ -301,6 +304,7 @@
     <Content Include="Scripts\theme\dataTables\dataTables.buttons.min.js" />
     <Content Include="Scripts\theme\dataTables\datatables.init.js" />
     <Content Include="Scripts\theme\dataTables\dataTables.responsive.min.js" />
+    <Content Include="Scripts\theme\dataTables\jQuery.dataTables.columnFilter.js" />
     <Content Include="Scripts\theme\dataTables\jquery.dataTables.min.js" />
     <Content Include="Scripts\theme\dataTables\jszip.min.js" />
     <Content Include="Scripts\theme\dataTables\pdfmake.min.js" />
@@ -335,6 +339,8 @@
     <Content Include="Scripts\theme\waves.js" />
     <Content Include="Scripts\theme\waypoints.min.js" />
     <Content Include="Scripts\theme\wow.min.js" />
+    <Content Include="Template\components-widgets.html" />
+    <Content Include="Template\form-elements.html" />
     <Content Include="Template\index.html" />
     <Content Include="Template\index2.html" />
     <Content Include="Template\landingpage.html" />
@@ -342,6 +348,8 @@
     <Content Include="Template\pages-login.html" />
     <Content Include="Template\pages-register.html" />
     <Content Include="Template\tables-datatable.html" />
+    <Content Include="Template\ui-panels.html" />
+    <Content Include="Template\ui-tabs.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

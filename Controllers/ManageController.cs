@@ -100,7 +100,7 @@ namespace BugTracker.Controllers
                 user.LastName = LastName;
 
                 db.SaveChanges();
-                return RedirectToAction("Index", "Manage");
+                return RedirectToAction("Index", "Tickets");
             }
             return View(user);
         }
@@ -172,7 +172,7 @@ namespace BugTracker.Controllers
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("Index", "Tickets");
         }
 
         //
@@ -187,7 +187,7 @@ namespace BugTracker.Controllers
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("Index", "Tickets");
         }
 
         //

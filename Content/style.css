@@ -6,14 +6,23 @@ body {
     padding-top:0;
     color: #333 !important;
     letter-spacing: .8px;
+    overflow-x:visible;
+    height:100%;
 }
 
 *:hover {
     transition: all 0.2s ease-out;
 }
 
-input {
+input,
+textarea {
     letter-spacing: .8px;
+    max-width:100% !important;
+}
+
+.input
+.select {
+    width:100% !important;
 }
 
 h1,h2,h3,h4,h5,h6,.h6,strong,.strong {
@@ -48,7 +57,7 @@ h6, .h6 {
 .body-content {
     max-width:100% !important;
     padding:0 !important;
-    min-height:400px;
+    min-height:100vh;
 }
 
 /* NAV STYLING */
@@ -108,6 +117,15 @@ h6, .h6 {
 
 #datatables_buttons_info h2 {
     font-size:1.5em !important;
+}
+
+.file-img {
+    width: 100px;
+    padding: 20px;
+}
+
+.light-blue {
+    color: #3ddcf7; 
 }
 
 /* GENERAL BRAND STYLING */
@@ -219,20 +237,50 @@ h6, .h6 {
     top: 0;
 }
 
+.nav.nav-tabs > li > a {
+    background-color:#444;
+    color:#fff !important;
+    transition:none;
+}
+
+.nav.nav-tabs > li.active > a {
+    color: #228bdf !important;
+}
+
+.nav-tabs {
+    background-color: #444;
+
+}
+
+.navtab-custom li a {
+     border-top: 0 !important; 
+}
+
 /* LOGIN PAGE STYLES 
 ************************************/
 /*Carbon-Fibre Texture*/
 #login, #dashboard {
     background-image: url("img/CV-bg.png");
     background-repeat:repeat;
-    height: 110vh;
     border:none;
     background-color: #ccc;
+}
+
+#login {
+    height:100vh;
 }
 
 #login label  {
     font-family: 'Passion One', cursive;
     font-size:1.5em;
+}
+
+#dashboard label  {
+    font-family: 'Passion One', cursive;
+    font-size:1.2em;
+    color:#505458;
+    font-weight:400;
+
 }
 
 .login-section {
@@ -276,10 +324,6 @@ h6, .h6 {
     color:#fff;
 }
 
-#dashboard .form-control {
-    width:auto;
-}
-
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
     background-color: #444;
     border-color: #444;
@@ -291,7 +335,81 @@ h6, .h6 {
     text-transform:uppercase;
 }
 
+#details td {
+    padding: 5px 15px;
+}
 
+#accordion-test-2 .panel-heading {
+    background-color:#444;
+    border-radius:0;
+    color:#fff!important;
+    text-transform:none;
+}
+
+.panel-group .panel {
+    border-radius:0;
+}
+
+#ticket-details li a,
+#accordion-test-2 .panel-title {
+    font-family: 'Passion One', cursive !important;
+    font-weight: 400 !important;
+    letter-spacing: 1.5px;
+}
+
+.comment-container {
+    max-height:400px;
+}
+
+.conversation-list {
+    max-height:200px;
+}
+
+.comment-box {
+    width:100% !important;
+    max-width: 100% !important;
+}
+
+input[type="file" i]::-webkit-file-upload-button {
+    align-items: flex-start;
+    text-align: center;
+    cursor: default;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight:700;
+    background-color: #3ddcf7;
+    box-sizing: border-box;
+    padding: 10px 14px;
+    border-radius: 2px 0 0 2px;
+    border: 1px solid #3ddcf7;
+}
+
+input[type="file" i]::-webkit-file-upload-button:hover {
+    background-color: #33bbd2 !important;
+    transition: all 0.2s ease-out;
+    border: 1px solid #33bbd2;
+}
+
+#fileToUpload {
+    border: 1px solid #eee;
+    border-radius: 2px;
+    max-width:100%;
+    width:100%;
+}
+
+.lifile .btn-info {
+    margin-top: 15px;
+}
+
+.star-bullet {
+    list-style-type:none;
+}
+.star-bullet li:before {    
+font-family: 'FontAwesome';
+content: "\f005";
+margin:0 5px 0 -15px;
+color: #3ddcf7;
+}
 /* MEDIA QUERIES 
 ************************************/
 @media (min-width: 768px) {

@@ -3,24 +3,28 @@
     ViewBag.Title = "ManageDisplayName";
 }
 
-<h2>ManageDisplayName</h2>
-
-@using (Html.BeginForm("ManageDisplayName", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <input type="hidden" name="Id" value="@Model.Id" />
-            <div class="col-xs-12">
-                <label class="strong" for="FirstName">First Name:</label>
-                <input class="form-control" name="FirstName" value="@Model.FirstName" />
-            </div>
-            <div class="col-xs-12 x-pad-top">
-                <label class="strong" for="LastName">Last Name:</label>
-                <input class="form-control" name="LastName" value="@Model.LastName" />
-            </div>
-            <div class="col-xs-12">
-                <div>
-                    <input type="submit" value="Change Display Name" class="btn btn-default" />
-                    @Html.ActionLink("Cancel", "Index", "Manage", new { @class = "btn btn-default" })
-                </div>
-            </div>
-}
+<div class="col-sm-6 col-sm-offset-3">
+    <div class="card-box row">
+        <div class="col-xs-12">
+            <h2 class="m-t-0 header-title"><b>Change Display Name</b></h2>
+            <hr />
+            @using (Html.BeginForm("ManageDisplayName", "Manage", FormMethod.Post, new { @role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FirstName, "First Name", new { @class = "col-xs-12 control-label" })
+                        <input class="form-control input" name="FirstName" value="@Model.FirstName" />
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LastName, "Last Name", new { @class = "col-xs-12 control-label" })
+                        <input class="form-control input" name="LastName" value="@Model.LastName" />
+                    </div>
+                    <div class="form-group pull-right">
+                        <input type="submit" value="Save Changes" class="btn btn-info" />
+                        @Html.ActionLink("Cancel", "Index", "Tickets",null, new { @class = "btn btn-info" })
+                    </div>
+                }
+        </div>
+    </div>
+</div>

@@ -65,8 +65,8 @@ function checkfile()
         switch (extension) {
             case 'jpg':
             case 'png':
-            case 'gif':
             case 'pdf':
+            case 'txt':
                 flag = true;
                 break;
             default:
@@ -75,7 +75,7 @@ function checkfile()
     }
     if (flag == false) 
     {
-        $("#spanfile").text("You can upload only jpg,png,gif,pdf extension file");
+        $("#spanfile").text("You can upload only .jpg, .png, .pdf, or .txt extension files");
         return false;
     }
     else 

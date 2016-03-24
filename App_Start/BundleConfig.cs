@@ -45,7 +45,8 @@ namespace BugTracker
                       "~/Scripts/theme/jquery.core.js",
                       "~/Scripts/theme/jquery.app.js"));
             bundles.Add(new ScriptBundle("~/bundles/theme/dataTables/dash-addons").Include(
-                    "~/Scripts/theme/dataTables/jQuery.dataTables.min.js",
+                      "~/Scripts/theme/dataTables/jQuery.dataTables.min.js",
+                      "~/Scripts/theme/dataTables/jQuery.dataTables.columnFilter.js",
                       "~/Scripts/theme/dataTables/dataTables.bootstrap.js",
                       "~/Scripts/theme/dataTables/dataTables.buttons.min.js",
                       "~/Scripts/theme/dataTables/buttons.bootstrap.min.js",

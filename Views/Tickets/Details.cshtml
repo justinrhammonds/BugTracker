@@ -4,218 +4,323 @@
 @{
     ViewBag.Title = "Details";
 }
+@* PANEL FOR TABS *@
+<div class="col-md-6">
+    <ul id="ticket-details" class="nav nav-tabs navtab-custom">
+        @* TABS NAVIGATION *@
+        <li class="active">
+            <a href="#details-12" data-toggle="tab" aria-expanded="false">
+                <span class="visible-xs"><i class="fa fa-info-circle"></i></span>
+                <span class="hidden-xs">Ticket Details</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="#log-12" data-toggle="tab" aria-expanded="false">
+                <span class="visible-xs"><i class="fa fa-th-list"></i></span>
+                <span class="hidden-xs">Change Log</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="#attachments-12" data-toggle="tab" aria-expanded="true">
+                <span class="visible-xs"><i class="fa fa-paperclip"></i></span>
+                <span class="hidden-xs">Attachments</span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" style="height:400px; overflow-y:scroll;">
+        @* TAB - DETAILS *@
+        <div class="tab-pane active" id="details-12">
+            <h6>@Html.DisplayFor(model => model.Name)</h6>
+            <br />
+            <p class="text-muted">@Html.DisplayFor(model => model.Description)</p>
+            <hr />
+            <table id="details">
+                <tr>
+                    <td class="strong">Project Name:</td>
+                    <td>@Model.Project.Name</td>
+                </tr>
+                <tr>
+                    <td class="strong">Created By:</td>
+                    <td>@Model.CreatedBy.FullName on @Model.CreatedDate.ToString("MMMM d, yyyy")</td>
+                </tr>
+                @if (Model.TicketLogs.Count() > 0 && Model.ModifiedDate != null)
+                {
+                var modifier = Model.TicketLogs.FirstOrDefault(l => l.ModifiedDate == Model.ModifiedDate).SubmittedBy.FullName;
+                var date = Model.ModifiedDate.Value.ToString("MMMM d, yyyy");
+                <tr>
+                    <td class="strong">Last Modified:</td>
+                    <td>@modifier on @date</td>
+                </tr>
+                }
 
-<h2>Details</h2>
+                <tr>
+                    <td class="strong">Current Status:</td>
+                    <td>@Model.Status.Name</td>
+                </tr>
+                <tr>
+                    <td class="strong">Ticket Priority:</td>
+                    <td>@Model.Priority.Name</td>
+                </tr>
+                <tr>
+                    <td class="strong">Ticket Type:</td>
+                    <td>@Model.TicketType.Name</td>
+                </tr>
+                @if (Model.RepoLocation != null)
+                {
+                <tr>
+                    <td class="strong">Repository:</td>
+                    <td><a href="@Model.RepoLocation">@Model.RepoLocation</a></td>
+                </tr>
+                }
 
-<div>
-    <h4>Ticket</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Priority.Name)
-        </dt>
+                @if (Model.AssignedToId != null)
+                {
+                <tr>
+                    <td class="strong">Assignment:</td>
+                    <td>@Model.AssignedTo.FullName</td>
+                </tr>
+                }
+                else
+                {
+                <tr>
+                    <td class="strong">Assigned Developer:</td>
+                    <td class="text-muted">currently unassigned</td>
+                </tr>
+                }
 
-        <dd>
-            @Html.DisplayFor(model => model.Priority.Name)
-        </dd>
+            </table>
+        </div>
+        @* TAB - HISTORY *@
+        <div class="tab-pane" id="log-12">
+            <table class="table">
+                <tbody>
+                    @if (Model.TicketLogs.Count() > 0)
+                    {
+                    foreach (var log in Model.TicketLogs.OrderByDescending(l => l.ModifiedDate))
+                    {
+                    <tr>
+                        <td style="padding:30px;">
+                            <h6>@log.ModifiedDate.Value.ToString("g") - @log.SubmittedBy.FullName</h6>
+                            <p>The <span class="strong">"@log.WhatChanged"</span> property was changed from <span class="strong">"@log.OldValue"</span> to <span class="strong">"@log.NewValue"</span></p>
+                        </td>
+                    </tr>
+                    }
+                    } else
+                    {
+                    <tr>
+                        <td><span class="strong">Currently, no changes have been made to this ticket.</span></td>
+                    </tr>
+                    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Project.Name)
-        </dt>
+                </tbody>
+            </table>
+        </div>
+        @* TAB - ATTACHENTS *@
+        <div class="tab-pane" id="attachments-12" style="overflow-x:scroll">
 
-        <dd>
-            @Html.DisplayFor(model => model.Project.Name)
-        </dd>
+            @if (Model.Attachments.Count() > 0)
+            {
+            var width = (Model.Attachments.Count()) * 140;
+            <div id="attachments" style="min-width:@width">
+                @foreach (var file in Model.Attachments)
+                {
+                    switch (file.FilePath.Substring(file.FilePath.LastIndexOf('.')))
+                    {
+                        case ".jpg":<a href="@Url.Content(file.FilePath)" target="_blank"><img src="@file.FilePath" class="file-img" /></a>
+                        break;
+                        case ".png":<a href="@Url.Content(file.FilePath)" target="_blank"><img src="@file.FilePath" class="file-img" /></a>
+                        break;
+                        case ".pdf":<a href="@Url.Content(file.FilePath)" target="_blank"><img src="~/Content/img/PDF.png" class="file-img" /></a>
+                        break;
+                        case ".txt":<a href="@Url.Content(file.FilePath)" target="_blank"><img src="~/Content/img/TXT.png" class="file-img" /></a>
+                        break;
+                    }
+                }
+            </div>
+            }
+            else
+            {
+            <div>
+                <p><span class="strong">Currently, no attachments have been uploaded to this ticket.</span></p>
+            </div>
+            }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Status.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketType.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketType.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RepoLocation)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RepoLocation)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedById)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedById)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AssignedToId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AssignedToId)
-        </dd>
-
-    </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-<hr />
-@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-{
-    <form action="@Url.Action("CreateComment", "Tickets")" method="post">
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
-        @ViewBag.CommentMessage
-        <input type="hidden" name="TicketId" value="@Model.Id" />
-        <div class="form-group">
-            <textarea class="form-control" name="Body" rows="2"></textarea>
-        </div>
-        <input type="submit" value="Submit" class="btn btn-info" />
-    </form>
-}
-else if (User.IsInRole("Developer") && Model.AssignedToId == User.Identity.GetUserId())
-{
-    <form action="@Url.Action("CreateComment", "Tickets")" method="post">
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
-        @ViewBag.CommentMessage
-        <input type="hidden" name="TicketId" value="@Model.Id" />
-        <div class="form-group">
-            <textarea class="form-control" name="Body" rows="2"></textarea>
-        </div>
-        <input type="submit" value="Submit" class="btn btn-info" />
-    </form>
-}
-else if (User.IsInRole("Submitter") && !User.IsInRole("Developer"))
-{
-    <form action="@Url.Action("CreateComment", "Tickets")" method="post">
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
-        @ViewBag.CommentMessage
-        <input type="hidden" name="TicketId" value="@Model.Id" />
-        <div class="form-group">
-            <textarea class="form-control" name="Body" rows="2"></textarea>
-        </div>
-        <input type="submit" value="Submit" class="btn btn-info" />
-    </form>
-}
 
-<hr />
-<div class="col-xs-12 comment-list">
-    @foreach (var comment in Model.Comments)
-    {
-        <div class="col-xs-12">
-            <span class="comment-name">@comment.User.FullName | </span><span class="comment-date">@comment.CreatedDate.ToString("dddd, MMMM d, yyyy")</span>
-
-            <div class="post-comment">
-                <span class="comment-body">@comment.Body</span>
+<div class="col-md-6">
+    <div class="panel-group" id="accordion-test-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion-test-2" href="#collapseOne-2" aria-expanded="false" class="collapsed">
+                        Add an Attachment
+                    </a>
+                </p>
+            </div>
+            <div id="collapseOne-2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                    {
+                        <div class="col-xs-12">
+                            @using (Html.BeginForm("AttachFile", "Tickets", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.ValidationSummary();
+                                @ViewBag.AttachmentMessage
+                                <div class="lifile">
+                                    <input type="hidden" name="TicketId" value="@Model.Id" />
+                                    <span class="field-validation-error" id="spanfile"></span>
+                                    <input type="file" id="fileToUpload" name="file" />
+                                    <input type="submit" class="btn btn-info pull-right" id="btnSubmit" value="Upload" />
+                                </div>
+                            }
+                        </div>
+                    }
+                    else if (User.IsInRole("Developer") && Model.AssignedToId == User.Identity.GetUserId())
+                    {
+                        <div class="col-xs-12">
+                            @using (Html.BeginForm("AttachFile", "Tickets", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.ValidationSummary();
+                                @ViewBag.AttachmentMessage
+                                <ol>
+                                    <li class="lifile">
+                                        <input type="hidden" name="TicketId" value="@Model.Id" />
+                                        <span class="btn btn-default btn-file">
+                                            Browse <input type="file" id="fileToUpload" name="file">
+                                        </span>
+                                        <span class="field-validation-error" id="spanfile"></span>
+                                    </li>
+                                </ol>
+                                <input type="submit" id="btnSubmit" value="Upload" />
+                            }
+                        </div>
+                    }
+                    else if (User.IsInRole("Submitter") && !User.IsInRole("Developer"))
+                    {
+                        <div class="col-xs-12">
+                            @using (Html.BeginForm("AttachFile", "Tickets", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.ValidationSummary();
+                                @ViewBag.AttachmentMessage
+                                <ol>
+                                    <li class="lifile">
+                                        <input type="hidden" name="TicketId" value="@Model.Id" />
+                                        <span class="btn btn-default btn-file">
+                                            Browse <input type="file" id="fileToUpload" name="file">
+                                        </span>
+                                        <span class="field-validation-error" id="spanfile"></span>
+                                    </li>
+                                </ol>
+                                <input type="submit" id="btnSubmit" value="Upload" />
+                            }
+                        </div>
+                    }
+                </div>
             </div>
         </div>
-    }
-</div>
+        <div class="panel panel-default comment-container">
+            <div class="panel-heading">
+                <p class="m-t-0 m-b-20 panel-title">Ticket Comments</p>
+            </div>
+            <div class="panel-body" style="width:90%; margin:5%;">
+                <div class="chat-conversation">
+                    <ul class="conversation-list nicescroll">
+                        @if (Model.Comments.Count() > 0)
+                        {
+                            foreach (var comment in Model.Comments.OrderByDescending(c =>c.CreatedDate))
+                            {
 
-@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-{
-    <div class="col-xs-12">
-        @using (Html.BeginForm("AttachFile", "Tickets", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.ValidationSummary();
-            @ViewBag.AttachmentMessage
-            <ol>
-                <li class="lifile">
-                    <input type="hidden" name="TicketId" value="@Model.Id" />
-                    <input type="file" id="fileToUpload" name="file" />
-                    <span class="field-validation-error" id="spanfile"></span>
-                </li>
-            </ol>
-            <input type="submit" id="btnSubmit" value="Upload" />
-        }
+                                var userName = comment.User.Email;
+                                //var userName = User.Identity.GetUserName();
+                                <li class="clearfix">
+                                    <div class="chat-avatar">
+                                        @Html.Gravatar(userName, 60, GravatarHelper.DefaultImageMysteryMan, GravatarRating.G, new { Title = "Current User: " + @ViewData["FullName"], Alt = "Gravatar" })
+                                        <i style="font-size:80%;">
+                                            @comment.CreatedDate.ToString("M/d/yy")<br />
+                                            @comment.CreatedDate.ToString("h:mmtt")
+                                        </i>
+                                    </div>
+                                    <div class="conversation-text">
+                                        <div class="ctext-wrap">
+                                            <i>@comment.User.FullName</i>
+                                            <p>
+                                                @comment.Body
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="text-muted">Currently there are no comments to display.</li>
+                        }
+                    </ul>
+                @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                {
+                    <div class="row">
+                        <form action="@Url.Action("CreateComment", "Tickets")" method="post">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+                            @ViewBag.CommentMessage
+                            <input type="hidden" name="TicketId" value="@Model.Id" />
+                            <div class="col-sm-9 chat-inputbar">
+                                <input name="Body" type="text" class="form-control chat-input comment-box" placeholder="Enter your comment">
+                            </div>
+                            <div class="col-sm-3 chat-send">
+                                <button type="submit" class="btn btn-md btn-info btn-block waves-effect waves-light">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                }
+                else if (User.IsInRole("Developer") && Model.AssignedToId == User.Identity.GetUserId())
+                {
+                    <div class="row">
+                        <form action="@Url.Action("CreateComment", "Tickets")" method="post">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+                            @ViewBag.CommentMessage
+                            <input type="hidden" name="TicketId" value="@Model.Id" />
+                            <div class="col-sm-9 chat-inputbar">
+                                <input name="Body" type="text" class="form-control chat-input comment-box" placeholder="Enter your comment">
+                            </div>
+                            <div class="col-sm-3 chat-send">
+                                <button type="submit" class="btn btn-md btn-info btn-block waves-effect waves-light">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                }
+                else if (User.IsInRole("Submitter") && !User.IsInRole("Developer"))
+                {
+                    <div class="row">
+                        <form action="@Url.Action("CreateComment", "Tickets")" method="post">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+                            @ViewBag.CommentMessage
+                            <input type="hidden" name="TicketId" value="@Model.Id" />
+                            <div class="col-sm-9 chat-inputbar">
+                                <input name="Body" type="text" class="form-control chat-input comment-box" placeholder="Enter your comment">
+                            </div>
+                            <div class="col-sm-3 chat-send">
+                                <button type="submit" class="btn btn-md btn-info btn-block waves-effect waves-light">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                }
+                </div>
+            </div>
+        </div>
     </div>
-}
-else if (User.IsInRole("Developer") && Model.AssignedToId == User.Identity.GetUserId())
-{
-    <div class="col-xs-12">
-        @using (Html.BeginForm("AttachFile", "Tickets", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.ValidationSummary();
-            @ViewBag.AttachmentMessage
-            <ol>
-                <li class="lifile">
-                    <input type="hidden" name="TicketId" value="@Model.Id" />
-                    <input type="file" id="fileToUpload" name="file" />
-                    <span class="field-validation-error" id="spanfile"></span>
-                </li>
-            </ol>
-            <input type="submit" id="btnSubmit" value="Upload" />
-        }
-    </div>
-}
-else if (User.IsInRole("Submitter") && !User.IsInRole("Developer"))
-{
-    <div class="col-xs-12">
-        @using (Html.BeginForm("AttachFile", "Tickets", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.ValidationSummary();
-            @ViewBag.AttachmentMessage
-            <ol>
-                <li class="lifile">
-                    <input type="hidden" name="TicketId" value="@Model.Id" />
-                    <input type="file" id="fileToUpload" name="file" />
-                    <span class="field-validation-error" id="spanfile"></span>
-                </li>
-            </ol>
-            <input type="submit" id="btnSubmit" value="Upload" />
-        }
-    </div>
-}
+</div>
 
 @section Scripts {
     <script src="~/Scripts/fileValidation.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $(".conversation-list > li:odd").addClass("odd");
+        });
+    </script>
 }
 

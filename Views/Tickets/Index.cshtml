@@ -5,10 +5,6 @@
     ViewBag.Title = "Tickets Index";
 }
 
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
-
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box table-responsive">
@@ -107,10 +103,26 @@
 @section Scripts {
     <script src="~/Scripts/theme/dataTables/datatables.init.js"></script>
     <script type="text/javascript">
-                $(document).ready(function() {
-                    $('#datatable').dataTable();
-                    $('#datatable-buttons').DataTable();
-                } );
-                TableManageButtons.init();
+        
+        $(document).ready(function () {
+            var table = $('#datatable-buttons').DataTable();
+            table.columnFilter({
+                sPlaceHolder: "head:before",
+                aoColumns: [
+                    { type: "text" },
+                    { type: "text" },
+                    { type: "text" },
+                    { type: "text" },
+                    { type: "text" },
+                    { type: "text" },
+                    null
+                ]
+            });
+        } );
+        TableManageButtons.init();
+
     </script>
 }
+
+
+

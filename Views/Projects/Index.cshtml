@@ -1,33 +1,70 @@
-﻿@model IEnumerable<BugTracker.Models.CodeFirst.Project>
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<BugTracker.Models.CodeFirst.Project>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="card-box table-responsive">
+            @if (User.IsInRole("Admin"))
+            {
+                <h2 class="m-t-0 header-title"><b>All Projects</b></h2>
+            }
+            else
+            {
+                <h2 class="m-t-0 header-title"><b>Your Projects</b></h2>
+            }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="col-xs-3">
+                            Project
+                        </th>
+                        <th class="col-xs-6">Members</th>
+                        <th class="col-xs-3">Manage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var projectUsers = item.Users.Select(u => u.FullName);
+                        <tr>
+                            <td class="col-xs-3">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td class="col-xs-6">
+                                <content>
+                                    @foreach (var user in projectUsers)
+                                    {
+                                        <div class="col-xs-12">@user</div>
+                                    }
+                                    
+                                </content>
+                            </td>
+                            <td class="col-xs-3">
+                                @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-info col-xs-12" })
+                                @Html.ActionLink("Assign Users", "AssignProjectUsers", new { projectId = item.Id }, new { @class = "btn btn-xs btn-info col-xs-12" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) | 
-            @Html.ActionLink("Assign", "AssignProjectUsers", new { projectId = item.Id })
-        </td>
-    </tr>
+@section Scripts {
+<script>
+    $.extend(true, $.fn.dataTable.defaults, {
+        "ordering": false
+    });
+
+    $(document).ready(function () {
+        $('.table').DataTable();
+    });
+</script>
+
 }
-
-</table>
