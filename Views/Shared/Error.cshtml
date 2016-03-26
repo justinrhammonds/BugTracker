@@ -2,8 +2,17 @@
 
 @{
     ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
+<div class="col-sm-6 col-sm-offset-3">
+    <div class="card-box row">
+        <div class="col-xs-12">
+            <h2 class="m-t-0 header-title"><b>Error.</b></h2>
+            <hr />
+            <p class="text-muted font-13 m-b-30">
+                An error occurred while processing your request. Please try again. If the problem persists, please contact an administrator.
+            </p>
+        </div>
+    </div>
+</div>

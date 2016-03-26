@@ -3,13 +3,32 @@
     ViewBag.Title = "AssignUserToTicket";
 }
 
-<h2>Assign Tickets to Users</h2>
+<div class="col-sm-6 col-sm-offset-3">
+    <div class="card-box row">
+        <div class="col-xs-12">
+            <h2 class="m-t-0 header-title"><b>Assign User to Ticket</b></h2>
+            <p class="text-muted font-13 m-b-30">
+                This form displays the current user assigned to this ticket. When you change the ticket assignment an email will be sent to the new user assigned to the ticket. You can only have one user assigned to a ticket at a time.
+            </p>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @*@Html.ListBox("SelectedUser", Model.Users, new { @id = "multi-select-box", multiple = "multiple" })*@
-    @Html.DropDownList("SelectedUser", Model.Users, "- Select -", htmlAttributes: new { @class = "form-control" })
-    <input type="submit" value="Assign User" />
-    @Html.ActionLink("Cancel", "Index", "Tickets")
-}
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Users, "Ticket: " + @Model.Ticket.Name, new { @class = "col-xs-12 control-label" })
+                        @Html.DropDownList("SelectedUser", Model.Users, "- Select -", htmlAttributes: new { @class = "form-control" })
+                        @*@Html.EditorFor(m => m.Users, new { htmlAttributes = new { @class = "form-control input" } })*@
+                    </div>
+                    <div class="form-group pull-right">
+                        <input type="submit" value="Assign User" class="btn btn-info" />
+                        @Html.ActionLink("Cancel", "Index", "Tickets", new { @class = "btn btn-info" })
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>

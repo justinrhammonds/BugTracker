@@ -20,6 +20,10 @@ textarea {
     max-width:100% !important;
 }
 
+.form-control.input-sm {
+    width:auto;
+}
+
 .input
 .select {
     width:100% !important;
@@ -45,6 +49,7 @@ h4, .header-title {
 
 .header-title {
     margin:20px auto;
+    line-height:1em;
 }
 
 h5, .h5 {
@@ -71,6 +76,10 @@ h6, .h6 {
 
 .nav-logo {
     width:180px;
+}
+
+.btn-group > .btn:first-child {
+    margin-left:10px;
 }
 
 .navbar-custom .navbar-nav li a {
@@ -275,7 +284,8 @@ h6, .h6 {
     font-size:1.5em;
 }
 
-#dashboard label  {
+#dashboard label,
+#login label  {
     font-family: 'Passion One', cursive;
     font-size:1.2em;
     color:#505458;

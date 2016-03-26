@@ -101,23 +101,15 @@
 </div>
 
 @section Scripts {
-    <script src="~/Scripts/theme/dataTables/datatables.init.js"></script>
+
+    @*<script src="~/Scripts/theme/dataTables/datatables.init.js"></script>*@
     <script type="text/javascript">
         
         $(document).ready(function () {
-            var table = $('#datatable-buttons').DataTable();
-            table.columnFilter({
-                sPlaceHolder: "head:before",
-                aoColumns: [
-                    { type: "text" },
-                    { type: "text" },
-                    { type: "text" },
-                    { type: "text" },
-                    { type: "text" },
-                    { type: "text" },
-                    null
-                ]
+            $('#datatable-buttons').DataTable({
+                "order": [[1, "desc"]]
             });
+
         } );
         TableManageButtons.init();
 
