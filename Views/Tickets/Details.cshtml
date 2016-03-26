@@ -126,9 +126,9 @@
                 {
                     switch (file.FilePath.Substring(file.FilePath.LastIndexOf('.')))
                     {
-                        case ".jpg":<a href="@Url.Content(file.FilePath)" target="_blank"><img src="@file.FilePath" class="file-img" /></a>
+                        case ".jpg":<a href="@Url.Content(file.FilePath)" target="_blank"><img src="~/Content/img/JPG.png" class="file-img" /></a>
                         break;
-                        case ".png":<a href="@Url.Content(file.FilePath)" target="_blank"><img src="@file.FilePath" class="file-img" /></a>
+                        case ".png":<a href="@Url.Content(file.FilePath)" target="_blank"><img src="~/Content/img/PNG.png" class="file-img" /></a>
                         break;
                         case ".pdf":<a href="@Url.Content(file.FilePath)" target="_blank"><img src="~/Content/img/PDF.png" class="file-img" /></a>
                         break;
@@ -160,7 +160,8 @@
                 </p>
             </div>
             <div id="collapseOne-2" class="panel-collapse collapse">
-                <div class="panel-body">
+                <div class="panel-body col-xs-12">
+                    <small class="text-muted">Attachments must be in one of the following formats: .pdf, .png, .jpg, .txt</small>
                     @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
                     {
                         <div class="col-xs-12">
