@@ -39,13 +39,13 @@ namespace BugTracker.Controllers
             //Submitters see all tickets they created, ordered by created date desc
             if (User.IsInRole("Admin"))
             {
-                return View(tickets.ToList().OrderByDescending(t => t.ModifiedDate).ThenByDescending(t => t.CreatedDate));
+                return View(tickets.OrderByDescending(t => t.CreatedDate).ToList());
             } else if (User.IsInRole("Project Manager") || User.IsInRole("Developer"))
             {
-                return View(projectTickets.ToList().OrderByDescending(t => t.ModifiedDate).ThenByDescending(t => t.CreatedDate));
+                return View(projectTickets.OrderByDescending(t => t.CreatedDate).ToList());
             } else
             {
-                return View(tickets.Where(t => t.CreatedById == userId).ToList().OrderByDescending(t => t.CreatedDate));
+                return View(tickets.Where(t => t.CreatedById == userId).OrderByDescending(t => t.CreatedDate).ToList());
             }
 
         }
@@ -118,6 +118,7 @@ namespace BugTracker.Controllers
                 return HttpNotFound();
             }
             //gets ticketpriority and tickettype lists, and has the current selected value from db
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
             ViewBag.TicketStatusId = new SelectList(db.TicketStatuses, "Id", "Name", ticket.TicketStatusId);
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
@@ -128,7 +129,7 @@ namespace BugTracker.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,ProjectId,AssignedToId,RepoLocation,TicketPriorityId,TicketStatusId,TicketTypeId")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,AssignedToId,RepoLocation,TicketPriorityId,TicketStatusId,TicketTypeId")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -138,14 +139,6 @@ namespace BugTracker.Controllers
                 db.Tickets.Attach(ticket);
                 ticket.ModifiedDate = DateTimeOffset.Now;
                 db.Update(ticket, "Name", "ModifiedDate", "Description", "AssignedToId", "TicketTypeId", "TicketPriorityId", "TicketStatusId", "RepoLocation");
-                //db.Entry(ticket).Property(t => t.ModifiedDate).IsModified = true;
-                //db.Entry(ticket).Property(t => t.Name).IsModified = true;
-                //db.Entry(ticket).Property(t => t.Description).IsModified = true;
-                //db.Entry(ticket).Property(t => t.AssignedToId).IsModified = true;
-                //db.Entry(ticket).Property(t => t.RepoLocation).IsModified = true;
-                //db.Entry(ticket).Property(t => t.TicketPriorityId).IsModified = true;
-                //db.Entry(ticket).Property(t => t.TicketStatusId).IsModified = true;
-                //db.Entry(ticket).Property(t => t.TicketTypeId).IsModified = true;
                 db.SaveChanges();
                 db.Tickets.Include(t => t.AssignedTo).FirstOrDefault(t => t.Id == ticket.Id);
 
@@ -281,6 +274,7 @@ namespace BugTracker.Controllers
             TicketsViewModel model = new TicketsViewModel();
             UserRolesHelper helper = new UserRolesHelper();
             //list of developers assigned to that ticket's project
+
             var availableUsers = helper.UsersInRole("Developer").Where(u => u.Projects.Any(p => p.Id == ticket.ProjectId)).ToArray();
             var currentAssignedUser = ticket.AssignedToId;
             //populate a select list of availableUsers, with the currentAssignedUser passed in as selected
